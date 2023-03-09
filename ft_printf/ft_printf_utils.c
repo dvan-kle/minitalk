@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: danielvankleef <danielvankleef@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 14:35:30 by dvan-kle          #+#    #+#             */
-/*   Updated: 2022/11/10 13:50:48 by danielvankl      ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_printf_utils.c                                  :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: danielvankleef <danielvankleef@student.      +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/10/26 14:35:30 by dvan-kle      #+#    #+#                 */
+/*   Updated: 2023/03/09 12:44:46 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@ static unsigned int	ft_len(ssize_t nb)
 
 static int	ft_itoa_printf(ssize_t nb, int size)
 {
-	char	ptr[size + 1];
-	int 	len;
+	char	*ptr;
+	int		len;
 
+	ptr = malloc(size + 1);
 	len = size;
 	ptr[len--] = '\0';
 	if (nb == 0)
@@ -64,7 +65,7 @@ static int	ft_itoa_printf(ssize_t nb, int size)
 			len--;
 		}
 	}
-	return(ft_putstr(ptr));
+	return (ft_putstr(ptr), free(ptr), size);
 }
 
 int	ft_convert(ssize_t nb)
