@@ -1,36 +1,38 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: dvan-kle <dvan-kle@student.codam.nl>         +#+                      #
-#                                                    +#+                       #
-#    Created: 2023/02/08 17:10:57 by dvan-kle      #+#    #+#                  #
-#    Updated: 2023/02/08 17:19:09 by dvan-kle      ########   odam.nl          #
-#                                                                              #
-# **************************************************************************** #
+CLIENT_NAME = client
+SERVER_NAME = server
 
-SOURCES = server.c client.c
-OBJECTS = $(SOURCES:.c=.o)
+LIBFT = libft/libft.a
+FT_PRINTF = ft_printf/ft_printf.a
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CC_FLAGS = -Wall -Wextra -Werror
 
-all: server client
+CLIENT_SRC = client.c
+SERVER_SRC = server.c
 
-server: server.o 
-	$(CC) -o $@ $<
+CLIENT_OBJ = client.o
+SERVER_OBJ = server.o
 
-client: client.o 
-	$(CC) -o $@ $<
+all: $(CLIENT_NAME) $(SERVER_NAME)
 
-%.o: %.c
-	$(CC) -c $(CFLAGS) $?
+$(CLIENT_NAME):
+	$(MAKE) all -C libft
+	$(MAKE) all -C ft_printf
+	$(CC) $(CC_FLAGS) $(CLIENT_SRC) $(LIBFT) $(FT_PRINTF) -o $(CLIENT_NAME)
+
+$(SERVER_NAME):
+	$(CC) $(CC_FLAGS) $(SERVER_SRC) $(LIBFT) $(FT_PRINTF) -o $(SERVER_NAME)
 
 clean:
-	rm -f $(OBJECTS)
-	
+	rm -rf $(CLIENT_OBJ)
+	rm -rf $(SERVER_OBJ)
+	$(MAKE) clean -C libft
+	$(MAKE) clean -C ft_printf
+
 fclean: clean
-	rm -f server client
+	rm -f $(CLIENT_NAME)
+	rm -f $(SERVER_NAME)
+	$(MAKE) fclean -C libft
+	$(MAKE) fclean -C ft_printf
 
 re: fclean all
