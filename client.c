@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/08 14:23:12 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2023/02/27 16:14:19 by danielvankl   ########   odam.nl         */
+/*   Updated: 2023/03/25 16:09:28 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_send_bits(int pid, char i)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(100);
+		usleep(400);
 		bit++;
 	}
 }
